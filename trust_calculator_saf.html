@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор доверия</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .question {
+            margin: 15px 0;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <h1>Калькулятор доверия</h1>
+    <form id="trustForm" onsubmit="event.preventDefault(); calculateTrustLevel(); return false;">
+        <div class="question">
+            <p>1. Вы доверяете этому человеку, когда он говорит о своих планах?</p>
+            <input type="radio" name="q1" value="yes"> Да
+            <input type="radio" name="q1" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>2. Вы чувствуете себя комфортно, делясь с ним личной информацией?</p>
+            <input type="radio" name="q2" value="yes"> Да
+            <input type="radio" name="q2" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>3. Вы верите, что он выполнит обещания?</p>
+            <input type="radio" name="q3" value="yes"> Да
+            <input type="radio" name="q3" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>4. Вы чувствуете себя в безопасности рядом с ним?</p>
+            <input type="radio" name="q4" value="yes"> Да
+            <input type="radio" name="q4" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>5. Вы доверяете его оценке ситуации?</p>
+            <input type="radio" name="q5" value="yes"> Да
+            <input type="radio" name="q5" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>6. Вы считаете, что он никогда не обманет вас?</p>
+            <input type="radio" name="q6" value="yes"> Да
+            <input type="radio" name="q6" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>7. Вы можете рассчитывать на его поддержку?</p>
+            <input type="radio" name="q7" value="yes"> Да
+            <input type="radio" name="q7" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>8. Вы чувствуете, что он понимает ваши чувства?</p>
+            <input type="radio" name="q8" value="yes"> Да
+            <input type="radio" name="q8" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>9. Вы доверяете его мнению?</p>
+            <input type="radio" name="q9" value="yes"> Да
+            <input type="radio" name="q9" value="no"> Нет
+        </div>
+        <div class="question">
+            <p>10. Вы считаете его надежным человеком?</p>
+            <input type="radio" name="q10" value="yes"> Да
+            <input type="radio" name="q10" value="no"> Нет
+        </div>
+        <button type="submit">Рассчитать уровень доверия</button>
+    </form>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('calcButton').addEventListener('click', calculateTrustLevel);
+
+        function calculateTrustLevel() {
+            let score = 0;
+            const totalQuestions = 10;
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const answer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (answer && answer.value === 'yes') {
+                    score++;
+                }
+            }
+
+            const trustLevel = (score / totalQuestions) * 100;
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Ваш уровень доверия: ${trustLevel.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>
